@@ -1,0 +1,15 @@
+{
+    "name": "lighthouse-setup",
+    "version": "1.0.0",
+    "description": "lighthouse-setup",
+    "main": "index.js",
+    "scripts": {
+      "lighthouse:ci": "node_modules/lighthouse/lighthouse-cli/index.js --output-path=./lighthouse-report.html --quiet --chrome-flags='--headless' https://www.mkthakral.com"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "lighthouse": "^6.4.1"
+    }
+  }
+  
