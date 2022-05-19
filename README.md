@@ -2,14 +2,14 @@
 
 It is Jenkins CI/CD pipeline built for SAP Hybris Ecommerce project, but can be used for other applications.
 
-##Tools
+## Tools
 * Lighhouse
 * ZAP
 * JUnit
 * Jacoco
 * Sonar
 
-##Stages
+## Stages
 * Checkout Source Code
 * Compile
 * JUnit + CodeCoverage
