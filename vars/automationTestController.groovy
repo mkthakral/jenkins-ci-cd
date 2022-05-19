@@ -1,4 +1,4 @@
-import com.gy.automationTestAction
+import com.mkthakral.automationTestAction
 
 def call(Map params)
 {

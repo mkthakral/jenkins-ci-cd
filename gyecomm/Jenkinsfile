@@ -1,0 +1,115 @@
+def sharedLibraryName = "pipeline-library-mohit"
+def emailReceipients = "mkthakral@gmail.com, mkthakral@outlook.com"
+
+library "${sharedLibraryName}"
+
+properties([
+    parameters([
+        choice(choices: ['DEV', 'DEV2', 'DEV3', 'DEV4', 'DEV5', 'DR', 'STAGE', 'PROD'], description: 'Choose the environment', name: 'targetEnvironment'),
+        string(defaultValue: 'master', description: 'Enter the Branch Name', name: 'branch', trim: false),
+        choice(choices: ['Active', 'Passive', 'Active+Passive'], description: 'Choose the DAST run mode', name: 'DAST_ZAP_SCAN_TYPE')
+    ])
+])
+
+node{
+    try {
+        stage('Checkout'){
+            gitController(
+                repoURL: "https://gitlab.mkthakral.com/java/hybris-ecommerce.git"
+            )
+        }
+        stage('Copy & Update files'){
+            hybrisController(
+                library: "${sharedLibraryName}",
+                action: "CopyAndUpdateFiles"
+            )
+        }
+        stage('Compile') {
+            hybrisController(
+                action: "Compile",
+            )
+        }
+        stage('Junit Tests + Code Coverage') {
+            codeCoverageController(
+                workspace: "${env.WORKSPACE}",
+                runJUnitTenantInit: false,     //By default, set to false, if not specified
+                runAntAll: false,               //By default, set to false, if not specified
+                antTestTarget: "unittests",    //By default, set to unittests, if not specified
+                dbHostURL: "mysqldev1.mkthakral.local",        //database host url for JUnit tenants
+                dbName:"MyDatabase",
+                libraryDir: "${sharedLibraryName}"
+                )
+        }
+        stage('Sonar'){
+            sonarController(
+                library: "${sharedLibraryName}",
+                projectNamePrefix: "hybris-",
+                projectNameSuffix: "-jenkins"
+            )
+        }
+
+        stage('Build Hybris Packaging')
+            {
+                hybrisPackagingController(
+                workspace: "${env.WORKSPACE}",
+                includeTomcat: false,
+                branch: "${env.branch}",
+                tomcatLegacyDeployment:false
+                )
+            }
+
+        stage('Build Config Packaging')
+        {
+            configPackagingController(
+                branch: "${env.branch}",
+                targetEnvironment: "${env.targetEnvironment}",
+                workspace: "${env.WORKSPACE}"
+            )
+        }
+
+        stage('Build Deployment Artifact')
+        {
+            buildArtifactController(
+            workspace: "${env.WORKSPACE}",
+            branch: "${env.branch}",
+            emailReceipients: "${emailReceipients}"
+            )
+        }
+
+        stage ('Deploy to "${env.targetEnvironment}"')
+        {
+            deploymentController(
+                workspace: "${env.WORKSPACE}",
+                targetEnvironment: "${env.targetEnvironment}",
+                runAntInitialize:false
+                )
+
+        }
+        stage('TESTS'){
+            parallel LightHouse: {
+                    nodejs(cacheLocationStrategy: workspace(), nodeJSInstallationName: 'LocalNode') {
+                lightHouseController()
+                }
+            },
+                DAST: {
+                dastController()
+            },
+                QA_Automation_tests: {
+                    automationTestController(
+                    testEnvironment: "${env.targetEnvironment}",
+                    workspace: "${env.WORKSPACE}",
+                    threads: "10",
+                    branch: "regression-migration",
+                    repoURL: "https://gitlab.mkthakral.com/java/java-qa-automation.git",
+                    testTags:"gy_tirefinder",
+                    credentialsId:"gitlab",
+                    browsers: "headless"
+                )
+            }
+        }
+    }finally {
+         emailext attachmentsPattern: 'reports-final/*.html' , attachLog: true, body: '${JELLY_SCRIPT,template="static-analysis"}', mimeType: 'text/html', recipientProviders: [developers(), culprits(), brokenTestsSuspects(), upstreamDevelopers()], subject: 'Build | $PROJECT_NAME | $BUILD_NUMBER | $BUILD_STATUS ', to: "${emailReceipients}"
+         addShortText background: 'blue', borderColor: '', color: '', link: '', text: "${branch}"
+    }
+
+}

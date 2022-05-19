@@ -1,4 +1,4 @@
-package com.gy.exception
+package com.mkthakral.exception
 
 class GyCustomException extends Exception{  
     GyCustomException(String message){  

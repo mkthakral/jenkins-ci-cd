@@ -1,4 +1,4 @@
-import com.gy.lightHouseAction
+import com.mkthakral.lightHouseAction
 
 def call() {
     def builder = new lightHouseAction();

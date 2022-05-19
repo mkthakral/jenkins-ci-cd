@@ -1,4 +1,4 @@
-package com.gy.exception
+package com.mkthakral.exception
 
 //Custom Exception for Quality Gates
 class QualityGateException extends Exception{  

@@ -1,6 +1,6 @@
-package com.gy
+package com.mkthakral
 
-import com.gy.utility.PropertyFileReader
+import com.mkthakral.utility.PropertyFileReader
 import org.apache.commons.io.FileUtils
 
 def WORKSPACE

@@ -1,10 +1,10 @@
-package com.gy
+package com.mkthakral
 import org.apache.commons.io.FileUtils
 import java.nio.file.Path
 import java.nio.file.Paths
-import com.gy.utility
-import com.gy.utility.CommandExecutor
-import com.gy.QualityGates
+import com.mkthakral.utility
+import com.mkthakral.utility.CommandExecutor
+import com.mkthakral.QualityGates
 import java.util.*
 
 def environment

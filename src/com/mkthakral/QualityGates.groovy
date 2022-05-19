@@ -1,4 +1,4 @@
-package com.gy
+package com.mkthakral
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,8 +10,8 @@ import java.util.Base64;
 @Grab(group='org.json', module='json', version='20140107')
 import org.json.JSONObject;
 import org.json.JSONArray;
-import com.gy.utility.CommandExecutor
-import com.gy.exception.QualityGateException
+import com.mkthakral.utility.CommandExecutor
+import com.mkthakral.exception.QualityGateException
 import java.math.BigDecimal;
 
 HashMap<String, String>  qualityGateProps

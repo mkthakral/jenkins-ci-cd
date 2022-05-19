@@ -1,4 +1,4 @@
-import com.gy.hybrisAction
+import com.mkthakral.hybrisAction
 
 def call(Map params){
     def builder = new hybrisAction();

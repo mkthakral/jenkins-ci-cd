@@ -1,6 +1,6 @@
-package com.gy
+package com.mkthakral
 
-import com.gy.utility.CommandExecutor
+import com.mkthakral.utility.CommandExecutor
 
 
 def initializeJUnit(String HYBRIS_HOME,String JAVA_HOME)

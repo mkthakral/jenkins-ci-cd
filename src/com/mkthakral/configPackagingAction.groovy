@@ -1,8 +1,8 @@
-package com.gy
+package com.mkthakral
 
-import com.gy.utility.PropertyFileReader
+import com.mkthakral.utility.PropertyFileReader
 import org.apache.commons.io.FileUtils
-import com.gy.utility
+import com.mkthakral.utility
 
 def HYBRIS_INSTALL_PATH
 def WORKSPACE

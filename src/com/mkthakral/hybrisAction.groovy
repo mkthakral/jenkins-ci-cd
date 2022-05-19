@@ -1,7 +1,7 @@
-package com.gy
-import com.gy.utility
+package com.mkthakral
+import com.mkthakral.utility
 import org.apache.commons.io.FileUtils
-import com.gy.utility.CommandExecutor
+import com.mkthakral.utility.CommandExecutor
 
 //Copy & Update Hybris files
 def copyAndUpdateFiles(Map params){

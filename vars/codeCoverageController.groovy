@@ -1,4 +1,4 @@
-import com.gy.codeCoverageAction
+import com.mkthakral.codeCoverageAction
 
 def call(Map params)
 {

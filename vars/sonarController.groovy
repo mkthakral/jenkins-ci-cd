@@ -1,4 +1,4 @@
-import com.gy.sonarAction
+import com.mkthakral.sonarAction
 
 def call(Map params) {
     def builder = new sonarAction();

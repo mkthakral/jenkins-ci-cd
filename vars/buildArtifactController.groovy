@@ -1,4 +1,4 @@
-import com.gy.buildArtifactAction
+import com.mkthakral.buildArtifactAction
 
 
 def call(Map params)

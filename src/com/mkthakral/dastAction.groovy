@@ -1,13 +1,13 @@
-package com.gy
-import com.gy.utility.CommandExecutor
+package com.mkthakral
+import com.mkthakral.utility.CommandExecutor
 @Grab(group='org.zaproxy', module='zap-clientapi', version='1.8.0')
 import org.zaproxy.clientapi.core.*
 import java.nio.charset.StandardCharsets;
 import java.io.File; 
 import java.io.FileOutputStream; 
 import java.io.OutputStream; 
-import com.gy.exception.GyCustomException
-import com.gy.QualityGates
+import com.mkthakral.exception.GyCustomException
+import com.mkthakral.QualityGates
 
 String ZAP_INSTALL_DIR
 String ZAP_API_KEY

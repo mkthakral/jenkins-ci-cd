@@ -1,6 +1,6 @@
-package com.gy
-import com.gy.utility.CommandExecutor
-import com.gy.utility.PropertyFileReader
+package com.mkthakral
+import com.mkthakral.utility.CommandExecutor
+import com.mkthakral.utility.PropertyFileReader
 import org.apache.commons.io.FileUtils
 
 def HYBRIS_HOME
